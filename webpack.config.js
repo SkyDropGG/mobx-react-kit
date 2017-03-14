@@ -16,7 +16,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
-    filename: 'app.[hash].js'
+    filename: '[name]-[hash].js',
+    chunkFilename: '[name]-[chunkhash].js'
   },
   devtool: 'eval',
   module: {
@@ -28,7 +29,7 @@ module.exports = {
         query: {
           presets: [
             ['es2015', {modules: false}],
-            'stage-1',
+            'stage-0',
             'react'
           ],
           plugins: [
@@ -57,6 +58,10 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({hash: false, template: './src/index.html'}),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /nb/),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: 'vendor',
+      minChunks: Infinity
+    }),
     new webpack.LoaderOptionsPlugin({
       test: /\.scss$/,
       debug: true,

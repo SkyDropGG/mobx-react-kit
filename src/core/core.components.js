@@ -4,11 +4,14 @@ import {Provider} from 'mobx-react';
 
 import routes from '../routes';
 import HomeStore from '../features/home.component/home.store';
+import Stories from './stores';
 
+Stories.inject('home', new HomeStore());
+console.log(Stories);
 const CoreComponent = () => {
   return (
     <Provider
-      homeStore={new HomeStore()}
+      stores={Stories.stores}
     >
       <Router routes={routes} history={browserHistory}>
       </Router>
