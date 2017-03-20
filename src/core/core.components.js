@@ -1,22 +1,23 @@
 import React, {Component} from 'react'
 import {Router, browserHistory} from 'react-router';
-import {Provider} from 'mobx-react';
+import {observable} from 'mobx';
+import {Provider, observer, inject} from 'mobx-react';
 
 import routes from '../routes';
-import HomeStore from '../features/home.component/home.store';
-import Stories from './stores';
-
-Stories.inject('home', new HomeStore());
-console.log(Stories);
-const CoreComponent = () => {
-  return (
-    <Provider
-      stores={Stories.stores}
-    >
+@inject('stores') @observer
+class CoreComponent extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    console.log(this.props.stores.getStores);
+    return (
+      <Provider {...this.props.stores.getStores}>
       <Router routes={routes} history={browserHistory}>
       </Router>
     </Provider>
-  )
-};
+    );
+  }
+}
 
 export default CoreComponent;

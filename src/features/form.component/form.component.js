@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {inject, observer} from 'mobx-react'
 
-@inject('stores') @observer
+@inject('formStore') @observer
 export default class FormComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: props.stores.form.getForm()
+      form: props.formStore.getForm()
     };
   }
 

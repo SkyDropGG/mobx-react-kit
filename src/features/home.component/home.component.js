@@ -2,12 +2,11 @@ import React, {Component, PropTypes} from 'react'
 import {observer, inject} from 'mobx-react';
 import {Link} from 'react-router';
 
-@inject('stores')
+@inject('homeStore')
 @observer
 class HomeComponent extends Component {
   render() {
-    const {actionsList} = this.props.stores.home;
-    console.log( this.props.stores.home);
+    const {actionsList} = this.props.homeStore;
     return (<div>
       hello
       <ul>
@@ -20,7 +19,7 @@ class HomeComponent extends Component {
     </div>);
   }
   addAction(e) {
-    this.props.stores.home.addAction(e.target.value);
+    this.props.homeStore.addAction(e.target.value);
   }
 }
 
